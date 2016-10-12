@@ -5,19 +5,16 @@
 
   const app = angular.module('cameraApp', []);
 
-  app.filter('ratingStars', function () {
-  return function (input) {
-    let total = input;
+  app.filter('ratingStars', function() {
+    return function (input) {
 
-    let stars = '';
+      let stars = '';
 
-    for (var i = 0; i < total; i++) {
-      stars += '*';
-    }
+      for (var i = 0; i < input; i++) {
+        stars += '⭐️';
+      }
 
-    input = stars;
-
-    return input;
+      return stars;
 
   };
 });
