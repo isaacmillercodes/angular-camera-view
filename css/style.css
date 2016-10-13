@@ -2,3 +2,13 @@ img {
   width: 25%;
   height: 25%;
 }
+
+.delete-cart-item {
+  background-color: red;
+}
+
+.subtotal,
+.tax,
+.total {
+  float: right;
+}

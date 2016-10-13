@@ -39,13 +39,51 @@
   app.controller('CartCtrl', function() {
 
     this.cartItems = [];
+    this.subtotal = 0;
+    this.tax = 0;
+    this.total = 0;
 
-    this.addToCart = function(camera) {
-      this.cartItems.push({
-        name: camera.name,
-        price: camera.price
-      });
+    this.addToCart = function(cameraToAdd) {
+      let existingCamera = this.cartItems.filter(camera => {
+        return camera.id === cameraToAdd.id;
+      })[0];
+
+      if (existingCamera) {
+        existingCamera.quantity++;
+      } else {
+        this.cartItems.push({
+          id: cameraToAdd.id,
+          quantity: 1,
+          price: cameraToAdd.price,
+          name: cameraToAdd.name
+        });
+      }
+      this.subtotal = calcSubtotal(this.cartItems);
+      this.tax = calcTax(this.subtotal);
+      this.total = this.subtotal + this.tax;
     };
+
+    this.removeFromCart = function(cameraToRemove) {
+      let removalIndex = this.cartItems.indexOf(cameraToRemove);
+      this.cartItems.splice(removalIndex, 1);
+
+      this.subtotal = calcSubtotal(this.cartItems);
+      this.tax = calcTax(this.subtotal);
+      this.total = this.subtotal + this.tax;
+    };
+
+    function calcSubtotal(array) {
+      let subtotal = 0;
+      array.map(item => {
+        subtotal += (item.price * item.quantity);
+      });
+      console.log(subtotal);
+      return subtotal;
+    }
+
+    function calcTax(num) {
+      return num * 0.08;
+    }
 
   });
 

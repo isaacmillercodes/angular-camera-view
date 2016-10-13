@@ -31,8 +31,16 @@
               <div class="card-content white-text">
                 <span class="card-title">Your Cart</span>
                 <div ng-repeat="item in cartController.cartItems">
-                  <p>{{item.name}}</p>
-                  <p>{{item.price | currency}}</p>
+                  <p>{{item.quantity}} - {{item.name}} <button type="button" class="delete-cart-item" ng-click="cartController.removeFromCart(item)">X</button></p>
+                </div>
+                <div>
+                  Subtotal<span class="subtotal">{{cartController.subtotal | currency}}</span>
+                </div>
+                <div>
+                  Tax<span class="tax">{{cartController.tax | currency}}</span>
+                </div>
+                <div>
+                  Total<span class="total">{{cartController.total | currency}}</span>
                 </div>
               </div>
               <div class="card-action">
